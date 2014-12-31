@@ -1,6 +1,9 @@
 # ecdh-es
 Elliptic Curve Diffie-Hellman with ephemeral-static keys implementation for NodeJS
 
+[![npm](https://img.shields.io/npm/v/ecdh-es.svg)](http://npmjs.org/package/ecdh-es)
+![npm](https://img.shields.io/npm/l/ecdh-es.svg)
+
 ### Install
 
     npm install --save ecdh-es

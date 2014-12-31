@@ -14,9 +14,14 @@ Elliptic Curve Diffie-Hellman with ephemeral-static keys implementation for Node
     var decrypted = ecdh.decrypt(pubkey, encrypted) // -> Buffer
     // (use toString() to convert back to string message)
 
-    // Uses the secp256k1 curve and AES-256-CBC cipher by default,
+    // Uses the secp256k1 curve and AES-128-CBC cipher by default,
     // but can be overridden as follows:
-    var ecdh = require('ecdh-es')('secp192k1', 'AES-256-CTR')
+    var ecdh = require('ecdh-es')({
+      curve_name: 'secp192k1',
+      cipher_algo: 'AES-256-CBC',
+      key_size: 32,
+      iv_size: 16
+    })
 
 ###  License
 

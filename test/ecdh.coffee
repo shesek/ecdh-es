@@ -7,4 +7,5 @@ describe 'ecdh', ->
     privkey = new Buffer 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'hex'
     for i in [1..5]
       pt = 'hello'+i
-      eq pt, ecdh.decrypt privkey, ecdh.encrypt pubkey, pt
+      pt += pt for [1..(0|Math.random()*10)]
+      eq pt, (ecdh.decrypt privkey, ecdh.encrypt pubkey, pt).toString()

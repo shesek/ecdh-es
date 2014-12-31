@@ -3,9 +3,6 @@ BigInt = require 'bigi'
 { Point, getCurveByName } = require 'ecurve'
 { reader, sha256, sha512, hmac, rand, rand_key, get_pub, buff_eq } = require './util'
 
-VERSION = 1
-MAGIC_BYTES = new Buffer [ 0x09, 0x43, 0x3d, 0x07, VERSION ]
-
 PUBKEY_SIZE = 33
 CHECKSUM_SIZE = 32
 
@@ -33,13 +30,11 @@ create_ecdh = ({ curve_name, cipher_algo, key_size, iv_size }) ->
     ct = Buffer.concat [ ct, cipher.final() ]
 
     checksum = hmac secret[key_size...], eph_p, ct
-    Buffer.concat [ MAGIC_BYTES, eph_p, checksum, ct ]
+    Buffer.concat [ eph_p, checksum, ct ]
 
   # Decrypt the ciphertext `enc` with `privkey`
   decrypt: (privkey, enc) ->
     read = reader enc
-    unless buff_eq MAGIC_BYTES, read(MAGIC_BYTES.length)
-      throw new Error 'Invalid magic bytes'
 
     pubkey   = read(PUBKEY_SIZE)
     checksum = read(CHECKSUM_SIZE)

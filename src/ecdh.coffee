@@ -32,7 +32,7 @@ create_ecdh = ({ curve_name, cipher_algo, key_size, iv_size }) ->
     ct = cipher.update msg
     ct = Buffer.concat [ ct, cipher.final() ]
 
-    checksum = hmac secret[key_size...], iv, ct
+    checksum = hmac secret[key_size...], eph_p, ct
     Buffer.concat [ MAGIC_BYTES, eph_p, checksum, ct ]
 
   # Decrypt the ciphertext `enc` with `privkey`
@@ -47,7 +47,7 @@ create_ecdh = ({ curve_name, cipher_algo, key_size, iv_size }) ->
     secret   = shared_secret privkey, pubkey
     iv       = sha256(pubkey)[0...iv_size]
 
-    unless buff_eq checksum, hmac secret[key_size...], iv, ct
+    unless buff_eq checksum, hmac secret[key_size...], pubkey, ct
       throw new Error 'Invalid checksum'
 
     cipher = crypto.createDecipheriv cipher_algo, secret[0...key_size], iv

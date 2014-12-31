@@ -1,6 +1,6 @@
 {
   "name": "ecdh-es",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Elliptic Curve Diffie-Hellman with ephemeral-static keys implementation for NodeJS",
   "main": "lib/ecdh.js",
   "keywords": [

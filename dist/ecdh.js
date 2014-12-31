@@ -31,7 +31,7 @@
       if (Buffer.isBuffer(Q)) {
         Q = Point.decodeFrom(curve, Q);
       }
-      return sha512(Q.multiply(d).affineX.toBuffer());
+      return sha512(Q.multiply(d).getEncoded(false));
     };
     return {
       encrypt: function(pubkey, msg) {
@@ -44,7 +44,7 @@
         cipher.setAutoPadding(true);
         ct = cipher.update(msg);
         ct = Buffer.concat([ct, cipher.final()]);
-        checksum = hmac(secret.slice(key_size), iv, ct);
+        checksum = hmac(secret.slice(key_size), eph_p, ct);
         return Buffer.concat([MAGIC_BYTES, eph_p, checksum, ct]);
       },
       decrypt: function(privkey, enc) {
@@ -58,7 +58,7 @@
         ct = read();
         secret = shared_secret(privkey, pubkey);
         iv = sha256(pubkey).slice(0, iv_size);
-        if (!buff_eq(checksum, hmac(secret.slice(key_size), iv, ct))) {
+        if (!buff_eq(checksum, hmac(secret.slice(key_size), pubkey, ct))) {
           throw new Error('Invalid checksum');
         }
         cipher = crypto.createDecipheriv(cipher_algo, secret.slice(0, key_size), iv);

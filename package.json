@@ -3,16 +3,24 @@
   "version": "0.0.1",
   "description": "Elliptic Curve Diffie-Hellman with ephemeral-static keys implementation for NodeJS",
   "main": "lib/ecdh.js",
-  "keywords": [ "ecdsa", "ecdh", "ies", "ecies" ],
+  "keywords": [
+    "ecdsa",
+    "ecdh",
+    "ies",
+    "ecies"
+  ],
   "scripts": {
     "test": "mocha",
-    "prepublish": "coffee -o lib -c src"
+    "prepublish": "./build.sh"
   },
   "author": "Nadav Ivgi",
   "license": "MIT",
   "devDependencies": {
     "coffee-script": "^1.8.0",
-    "mocha": "^2.1.0"
+    "mocha": "^2.1.0",
+    "crypto-browserify": "^3.7.2",
+    "browserify": "^8.0.2",
+    "uglify-js": "^2.4.16"
   },
   "dependencies": {
     "secure-random": "^1.1.1",

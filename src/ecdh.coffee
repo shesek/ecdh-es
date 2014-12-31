@@ -18,7 +18,7 @@ create_ecdh = ({ curve_name, cipher_algo, key_size, iv_size }) ->
     d = BigInt.fromBuffer d       if Buffer.isBuffer d
     Q = Point.decodeFrom curve, Q if Buffer.isBuffer Q
 
-    sha512 Q.multiply(d).affineX.toBuffer()
+    sha512 Q.multiply(d).getEncoded(false)
 
   # Encrypt the plain text `msg` for `pubkey`
   encrypt: (pubkey, msg) ->

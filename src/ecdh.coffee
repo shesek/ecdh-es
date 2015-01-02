@@ -36,8 +36,8 @@ create_ecdh = ({ curve_name, cipher_algo, key_size, iv_size }) ->
   decrypt: (privkey, enc) ->
     read = reader enc
 
-    pubkey   = read(PUBKEY_SIZE)
-    checksum = read(CHECKSUM_SIZE)
+    pubkey   = read PUBKEY_SIZE
+    checksum = read CHECKSUM_SIZE
     ct       = read()
     secret   = shared_secret privkey, pubkey
     iv       = sha256(pubkey)[0...iv_size]
@@ -52,6 +52,6 @@ create_ecdh = ({ curve_name, cipher_algo, key_size, iv_size }) ->
 
 module.exports = create_ecdh
 
-# Export default methods for secp256k1/AES-256-CBC directly on module.exports
+# Export default methods for secp256k1/AES-128-CBC directly on module.exports
 for k, v of (create_ecdh curve_name: 'secp256k1', cipher_algo: 'AES-128-CBC', key_size: 16, iv_size: 16)
   module.exports[k] = v

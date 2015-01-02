@@ -13,6 +13,9 @@
     "test": "mocha",
     "prepublish": "./build.sh"
   },
+  "browser": {
+    "crypto": "./lib/browser-crypto.js"
+  },
   "author": "Nadav Ivgi",
   "license": "MIT",
   "devDependencies": {

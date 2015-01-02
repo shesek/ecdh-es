@@ -26,6 +26,18 @@ Elliptic Curve Diffie-Hellman with ephemeral-static keys implementation for Node
       iv_size: 16
     })
 
+### Browser usage
+If you're using browserify to bundle your code, you can use this package
+normally and everything should work the same.
+Note, however, that
+[crypto-browserify](https://github.com/dominictarr/crypto-browserify)
+(which is used as a shim for nodejs's `crypto` api)
+only support AES encryption.
+
+If you're not using browserify, you can use the standalone bundle at `dist/ecdh.min.js`,
+which comes packaged with all of the dependencies.
+Including it in your page will provide global `ECDH` object you can use.
+
 ###  License
 
 MIT
